@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Amount from './components/credits/amount.jsx';
+import PaymentMethod from './components/credits/method.jsx';
+import RadioPaymentSelection from './components/credits/selection.jsx';
+
 
 
 /*
@@ -20,10 +23,28 @@ class Credits extends React.Component {
         {'amount':200, 'callout':'Big Bonus', 'bonus':'$22 Bonus'},
         {'amount':500, 'callout':'Best Value', 'bonus':'$60 Bonus'}
       ],
+      creditSelection: 100,
+      paymentMethod: '',
     };
-  }
-  render() {
 
+    [
+      'getPaymentMethod',
+      'getCurrentCreditSelection'
+    ].forEach(method => { this[method] = this[method].bind(this); });
+  }
+
+
+  getCurrentCreditSelection(num) {
+    this.setState({ creditSelection: num });
+  }
+
+
+  getPaymentMethod(method) {
+    this.setState({ paymentMethod: method });
+  }
+
+
+  render() {
     return (
       <div>
         <div id="bulk-hero" className="hero-transparent">
@@ -37,6 +58,18 @@ class Credits extends React.Component {
                 amount={card}
               />
             ))}
+          </div>
+          <div className="clearfix"></div>
+          <div className="complete-purchase clearfix">
+            <h2>Complete Purchase</h2>
+            <hr className="light" />
+            <RadioPaymentSelection
+              getPaymentMethod={this.getPaymentMethod}
+            />
+            <PaymentMethod
+              credits={this.state.creditSelection}
+              method={this.state.paymentMethod}
+            />
           </div>
         </form>
       </div>
