@@ -58,9 +58,16 @@ class Credits extends React.Component {
       <div>
         <div id="bulk-hero" className="hero-transparent">
           <h1>Stock up on Credits</h1>
-          <div className="blurb">Save money and get free bonus credits when you buy in bulk</div>
+          <div className="blurb">
+            Save money and get free bonus credits when you buy in bulk
+          </div>
         </div>
-        <form method="" action="" id="settings-credits" className="form-horizontal form-column">
+        <form
+          method=""
+          action=""
+          id="settings-credits"
+          className="form-horizontal form-column"
+        >
           <div className="bc-group">
             {this.state.dataAmounts.map((card, idx) => (
               <Amount
