@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import Action from './components/credits/action.jsx';
 import Amount from './components/credits/amount.jsx';
 import PaymentMethod from './components/credits/method.jsx';
 import RadioPaymentSelection from './components/credits/selection.jsx';
@@ -23,7 +24,7 @@ class Credits extends React.Component {
         {'amount':200, 'callout':'Big Bonus', 'bonus':'$22 Bonus'},
         {'amount':500, 'callout':'Best Value', 'bonus':'$60 Bonus'}
       ],
-      creditSelection: 100,
+      creditSelection: 0,
       paymentMethod: '',
     };
 
@@ -31,6 +32,14 @@ class Credits extends React.Component {
       'getPaymentMethod',
       'getCurrentCreditSelection'
     ].forEach(method => { this[method] = this[method].bind(this); });
+  }
+
+
+  componentDidMount() {
+    this.setState({
+      creditSelection: 100,
+      paymentMethod: 'creditcard'
+    });
   }
 
 
@@ -56,6 +65,7 @@ class Credits extends React.Component {
             {this.state.dataAmounts.map((card, idx) => (
               <Amount
                 amount={card}
+                getCurrentCreditSelection={this.getCurrentCreditSelection}
               />
             ))}
           </div>
@@ -63,10 +73,17 @@ class Credits extends React.Component {
           <div className="complete-purchase clearfix">
             <h2>Complete Purchase</h2>
             <hr className="light" />
+
             <RadioPaymentSelection
               getPaymentMethod={this.getPaymentMethod}
             />
+
             <PaymentMethod
+              credits={this.state.creditSelection}
+              method={this.state.paymentMethod}
+            />
+
+            <Action
               credits={this.state.creditSelection}
               method={this.state.paymentMethod}
             />
