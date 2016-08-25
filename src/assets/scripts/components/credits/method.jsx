@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { getCardTypeValidation } from '../../helpers';
 
 
 /*
@@ -16,7 +17,22 @@ class PaymentMethod extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      cardType: '',
+    };
+
+    [
+      '_getCreditCardType'
+    ].forEach(method => { this[method] = this[method].bind(this); });
   }
+
+
+  _getCreditCardType() {
+    const cardNum = $('.cc-number').val();
+    const type = getCardTypeValidation(cardNum);
+    this.setState({ cardType: type });
+  }
+
 
   render() {
     return (
@@ -59,6 +75,7 @@ class PaymentMethod extends React.Component {
                             value="creditcard"
                             checked=""
                           />
+                        {this.state.cardType == '' || typeof this.state.cardType == 'undefined' ? (
                           <div className="card-type">
                             <i className="icon-card-visa"></i>
                             <i className="icon-card-mastercard"></i>
@@ -68,6 +85,11 @@ class PaymentMethod extends React.Component {
                             <i className="icon-card-dinersclub"></i>
                             <i className="icon-card-unknown animate selected"></i>
                           </div>
+                          ) : (
+                            <div className="card-type">
+                              <i className={'icon-card-' + this.state.cardType + ' animate selected'}></i>
+                            </div>
+                          )}
                         </label>
                       </div>
 
@@ -85,12 +107,14 @@ class PaymentMethod extends React.Component {
                         <i className="icon-lock"></i>
                         <input
                           name="cc"
-                          type="text"
+                          type="number"
                           required=""
-                          pattern="\d*"
+                          pattern="[0-9]*"
+                          inputMode="numeric"
                           className="cc-number"
                           autoComplete="cc-number"
                           placeholder="Card Number"
+                          onChange={this._getCreditCardType}
                         />
                       </div>
 
@@ -100,7 +124,8 @@ class PaymentMethod extends React.Component {
                             name="exp"
                             type="text"
                             required=""
-                            pattern="\d*"
+                            maxLength="5"
+                            pattern="\d{5}"
                             className="cc-exp"
                             autoComplete="cc-exp"
                             placeholder="MM / YY"
@@ -112,7 +137,8 @@ class PaymentMethod extends React.Component {
                             name="cvc"
                             type="text"
                             required=""
-                            pattern="\d*"
+                            maxLength="4"
+                            pattern="\d{4}"
                             placeholder="CVC"
                             className="cc-cvc"
                             autoComplete="off"

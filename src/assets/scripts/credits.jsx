@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Action from './components/credits/action.jsx';
 import Amount from './components/credits/amount.jsx';
+import { validateCard } from './helpers';
 import PaymentMethod from './components/credits/method.jsx';
 import RadioPaymentSelection from './components/credits/selection.jsx';
-
 
 
 /*
@@ -30,7 +30,9 @@ class Credits extends React.Component {
 
     [
       'getPaymentMethod',
-      'getCurrentCreditSelection'
+      'getCurrentCreditSelection',
+
+      'handleCreditsPurchaseSubmission'
     ].forEach(method => { this[method] = this[method].bind(this); });
   }
 
@@ -50,6 +52,17 @@ class Credits extends React.Component {
 
   getPaymentMethod(method) {
     this.setState({ paymentMethod: method });
+  }
+
+
+  handleCreditsPurchaseSubmission() {
+    // store card obj
+    const card = {};
+    card.number = $('.cc-number').val();
+    card.expiration = $('.cc-exp').val();
+    card.cvc = $('.cc-cvc').val();
+
+    validateCard(card);
   }
 
 
@@ -86,13 +99,14 @@ class Credits extends React.Component {
             />
 
             <PaymentMethod
-              credits={this.state.creditSelection}
               method={this.state.paymentMethod}
+              credits={this.state.creditSelection}
             />
 
             <Action
-              credits={this.state.creditSelection}
               method={this.state.paymentMethod}
+              credits={this.state.creditSelection}
+              handleCreditsPurchaseSubmission={this.handleCreditsPurchaseSubmission}
             />
           </div>
         </form>
