@@ -83,10 +83,12 @@ class Credits extends React.Component {
         >
           <div className="bc-group">
             {this.state.dataAmounts.map((card, idx) => (
-              <Amount
-                amount={card}
-                getCurrentCreditSelection={this.getCurrentCreditSelection}
-              />
+              <div className="card" key={idx}>
+                <Amount
+                  amount={card}
+                  getCurrentCreditSelection={this.getCurrentCreditSelection}
+                />
+              </div>
             ))}
           </div>
           <div className="clearfix"></div>

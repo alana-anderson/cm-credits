@@ -11,6 +11,9 @@
  * - validateCard
  * - getCardTypeValidation
  * - expirationDateValidation
+ *
+ * testing card numbers can be found here:
+ * https://stripe.com/docs/testing
  */
 
 var regEx = {

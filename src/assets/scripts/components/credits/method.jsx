@@ -63,90 +63,88 @@ class PaymentMethod extends React.Component {
                 </div>
 
                 <div className="card-edit card active">
-                  <form noValidate="" autoComplete="on">
-                    <div className="strip">
-                      <div className="payment-methods">
-                        <label htmlFor="credit_card">
-                          <span className="cm-radiobtn cm-radiobtn-checked"></span>
-                          <input
-                            type="radio"
-                            id="credit_card"
-                            name="selection"
-                            value="creditcard"
-                            checked=""
-                          />
-                        {this.state.cardType == '' || typeof this.state.cardType == 'undefined' ? (
+                  <div className="strip">
+                    <div className="payment-methods">
+                      <label htmlFor="credit_card">
+                        <span className="cm-radiobtn cm-radiobtn-checked"></span>
+                        <input
+                          type="radio"
+                          id="credit_card"
+                          name="selection"
+                          value="creditcard"
+                          checked=""
+                        />
+                      {this.state.cardType == '' || typeof this.state.cardType == 'undefined' ? (
+                        <div className="card-type">
+                          <i className="icon-card-visa"></i>
+                          <i className="icon-card-mastercard"></i>
+                          <i className="icon-card-jcb"></i>
+                          <i className="icon-card-americanexpress"></i>
+                          <i className="icon-card-discover"></i>
+                          <i className="icon-card-dinersclub"></i>
+                          <i className="icon-card-unknown animate selected"></i>
+                        </div>
+                        ) : (
                           <div className="card-type">
-                            <i className="icon-card-visa"></i>
-                            <i className="icon-card-mastercard"></i>
-                            <i className="icon-card-jcb"></i>
-                            <i className="icon-card-americanexpress"></i>
-                            <i className="icon-card-discover"></i>
-                            <i className="icon-card-dinersclub"></i>
-                            <i className="icon-card-unknown animate selected"></i>
+                            <i className={'icon-card-' + this.state.cardType + ' animate selected'}></i>
                           </div>
-                          ) : (
-                            <div className="card-type">
-                              <i className={'icon-card-' + this.state.cardType + ' animate selected'}></i>
-                            </div>
-                          )}
-                        </label>
-                      </div>
-
-                      <span className="checkbox-group">
-                        <span className="cm-checkbox cm-checkbox-checked"></span>
-                        <input type="checkbox" checked="" value="1" />
-                        Save
-                      </span>
-
-                      <span className="price">${this.props.credits}</span>
+                        )}
+                      </label>
                     </div>
 
-                    <div className="fields new-credit-card-fields">
-                      <div className="form-field">
-                        <i className="icon-lock"></i>
+                    <span className="checkbox-group">
+                      <span className="cm-checkbox cm-checkbox-checked"></span>
+                      <input type="checkbox" checked="" value="1" />
+                      Save
+                    </span>
+
+                    <span className="price">${this.props.credits}</span>
+                  </div>
+
+                  <div className="fields new-credit-card-fields">
+                    <div className="form-field">
+                      <i className="icon-lock"></i>
+                      <input
+                        name="cc"
+                        type="number"
+                        required=""
+                        pattern="[0-9]*"
+                        inputMode="numeric"
+                        className="cc-number"
+                        autoComplete="cc-number"
+                        placeholder="Card Number"
+                        onChange={this._getCreditCardType}
+                      />
+                    </div>
+
+                    <div className="inline">
+                      <div className="form-field expiry">
                         <input
-                          name="cc"
-                          type="number"
+                          name="exp"
+                          type="text"
                           required=""
-                          pattern="[0-9]*"
-                          inputMode="numeric"
-                          className="cc-number"
-                          autoComplete="cc-number"
-                          placeholder="Card Number"
-                          onChange={this._getCreditCardType}
+                          maxLength="5"
+                          pattern="\d{5}"
+                          className="cc-exp"
+                          autoComplete="cc-exp"
+                          placeholder="MM / YY"
                         />
                       </div>
 
-                      <div className="inline">
-                        <div className="form-field expiry">
-                          <input
-                            name="exp"
-                            type="text"
-                            required=""
-                            maxLength="5"
-                            pattern="\d{5}"
-                            className="cc-exp"
-                            autoComplete="cc-exp"
-                            placeholder="MM / YY"
-                          />
-                        </div>
-
-                        <div className="form-field cvc">
-                          <input
-                            name="cvc"
-                            type="text"
-                            required=""
-                            maxLength="4"
-                            pattern="\d{4}"
-                            placeholder="CVC"
-                            className="cc-cvc"
-                            autoComplete="off"
-                          />
-                        </div>
+                      <div className="form-field cvc">
+                        <input
+                          name="cvc"
+                          type="text"
+                          required=""
+                          maxLength="4"
+                          pattern="\d{4}"
+                          placeholder="CVC"
+                          className="cc-cvc"
+                          autoComplete="off"
+                        />
                       </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>

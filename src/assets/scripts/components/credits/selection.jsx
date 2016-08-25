@@ -25,6 +25,11 @@ class RadioPaymentSelection extends React.Component {
 
 
   _handlePaymentMethod(event) {
+    const selected = event.target.id;
+    $('.cm-radiobtn').removeClass('cm-radiobtn-checked');
+    $('#'+selected).prev(".cm-radiobtn:first").addClass('cm-radiobtn-checked');
+
+    // send selection to method component
     this.props.getPaymentMethod(event.target.value);
   }
 
@@ -35,25 +40,27 @@ class RadioPaymentSelection extends React.Component {
         <label className="control-label">Payment Method:</label>
         <div className="controls">
           <div className="radiobtn-group">
-            <label id="method-creditcard">
+            <label id="method-creditcard" onClick={this._handlePaymentMethod}>
               <span className="cm-radiobtn cm-radiobtn-checked"></span>
               <input
                 type="radio"
                 name="method"
                 value="creditcard"
                 checked=""
+                id="1radio"
                 onClick={this._handlePaymentMethod}
               />
               <i className="icon-credit-card"></i> Credit Card
             </label>
           </div>
-          <div className="radiobtn-group">
+          <div className="radiobtn-group" onClick={this._handlePaymentMethod}>
             <label id="method-paypal">
               <span className="cm-radiobtn"></span>
               <input
                 type="radio"
                 name="method"
                 value="paypal"
+                id="2radio"
                 onClick={this._handlePaymentMethod}
               />
               <i className="icon-paypal-card"></i> PayPal

@@ -42,6 +42,7 @@ class Amount extends React.Component {
         data-key={this.props.amount.amount}
         onClick={this._handleCardSelection}
       >
+        <input type="hidden" key={this.props.idx} />
         <i className="icon-check-corner"></i>
         <div className="bc-wrapper">
           <div className="bc-row">

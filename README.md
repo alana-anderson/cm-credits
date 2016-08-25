@@ -25,7 +25,7 @@ gulp
 
 Will serve up on port `8000`.
 
-## Production Build (Coming soon)
+## Production Build
 ```
-gulp --production
+gulp build
 ```

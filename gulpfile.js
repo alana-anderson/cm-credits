@@ -4,6 +4,9 @@ var less = require('gulp-less');
 var react = require('gulp-react');
 var babelify = require('babelify');
 var uglify = require('gulp-uglify');
+var useref = require('gulp-useref');
+var cssmin = require('gulp-cssmin');
+var rename = require('gulp-rename');
 var browserify = require('browserify');
 var webserver = require('gulp-webserver');
 var streamify = require('gulp-streamify');
@@ -44,7 +47,37 @@ gulp.task('webserver', function() {
 });
 
 
-// Build for production (Coming soon)
+// Build js for dist
+gulp.task('buildScripts', function() {
+  return gulp.src([
+    '!./src/assets/bundles/main.css',
+    './src/assets/bundles/app.js'
+  ])
+  .pipe(rename('app.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('dist'));
+});
+
+
+// Build css into dist
+gulp.task('buildStyles', function () {
+  return gulp.src([
+    '!./src/assets/bundles/app.css',
+    './src/assets/bundles/main.css'
+  ])
+  .pipe(cssmin())
+  .pipe(rename('app.min.css'))
+  .pipe(gulp.dest('dist'));
+});
+
+
+// Switch dist files for production
+gulp.task('html', function () {
+  return gulp.src('src/*.html')
+    .pipe(useref())
+    .pipe(gulp.dest('dist'));
+});
+
 
 // Watch for changes
 gulp.task('watch', function() {
@@ -53,3 +86,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['less', 'scripts', 'webserver', 'watch']);
+gulp.task('build', ['buildScripts', 'buildStyles', 'html']);
