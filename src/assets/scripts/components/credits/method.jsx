@@ -149,20 +149,20 @@ class PaymentMethod extends React.Component {
               </div>
             </div>
 
-  					<div className="method-paypal">
-  						<div className="credit-card-widget paypal paypal-large">
-  							<div className="card card-preview active">
-  								<div className="strip">
-  									<i className="icon-logo-paypal"></i>
-  									<i className="icon-lock"></i>
-  									<span className="price" id="paypal-amount">
+            <div className="method-paypal">
+              <div className="credit-card-widget paypal paypal-large">
+                <div className="card card-preview active">
+                  <div className="strip">
+                    <i className="icon-logo-paypal"></i>
+                    <i className="icon-lock"></i>
+                    <span className="price" id="paypal-amount">
                       ${this.props.credits}
                     </span>
-  								</div>
-  							</div>
-  						</div>
-  					</div>
-  				</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="method-paypal active">
             <div className="credit-card-widget paypal paypal-large">

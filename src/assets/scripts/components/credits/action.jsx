@@ -29,12 +29,12 @@ function Action(props) {
             <span>Continue on <i className="icon-logo-paypal">PayPal</i></span>
           )}
           <span className="cm-loading hidden">
-  	        <span className="loading-dot"></span>
-  	        <span className="loading-dot"></span>
+            <span className="loading-dot"></span>
+            <span className="loading-dot"></span>
             <span className="loading-dot"></span>
           </span>
         </a>
-  		</div>
+      </div>
     </div>
   );
 }
